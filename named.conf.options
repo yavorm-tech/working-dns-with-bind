@@ -1,0 +1,21 @@
+acl "trusted" {
+	192.168.2.7; #ns1 
+	192.168.2.194; #mobileiron core
+};
+options {
+	directory "/var/cache/bind";
+
+	dnssec-validation auto;
+
+	recursion yes ;				#enable recursive queries ;
+	allow-recursion { any ; }; 		#Allow recursive queries from trusted hosts
+	listen-on { 192.168.2.7; }; 		#listen on private network only
+#	listen-on { 192.168.0.110; }; 		#listen on private network only
+	allow-transfer { none; };    		 #disable zone transfers by default;
+	forwarders {
+		8.8.8.8;
+		8.8.4.4;
+	};
+
+//	listen-on-v6 { any; };
+};
